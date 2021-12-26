@@ -16,7 +16,7 @@ class ray {
         vec3 direction() const { return dir; }
         double time() const { return tm; }
 
-        point at(double t) {
+        point at(double t) const {
             return orig + dir*t;
         }
 
