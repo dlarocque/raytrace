@@ -1,26 +1,31 @@
-#ifndef HITTABLELISTH
-#define HITTABLELISTH
+#ifndef HITTABLELIST_H
+#define HITTABLELIST_H
+
+#include "rtweekend.h"
 
 #include "hittable.h"
 
 #include <memory>
 #include <vector>
 
-class hittable_list : public hittable {
+
+class hittable_list : public hittable  {
     public:
         hittable_list() {}
-        hittable_list(std::shared_ptr<hittable> object) { add(object); }
+        hittable_list(shared_ptr<hittable> object) { add(object); }
 
         void clear() { objects.clear(); }
-        void add(std::shared_ptr<hittable> object) { objects.push_back(object); }
+        void add(shared_ptr<hittable> object) { objects.push_back(object); }
 
-        virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
+        virtual bool hit(
+            const ray& r, double t_min, double t_max, hit_record& rec) const override;
 
     public:
-        std::vector<std::shared_ptr<hittable>> objects;
+        std::vector<shared_ptr<hittable>> objects;
 };
 
-bool hittable_list::hit(const ray& r, double t_min, double t_max, hit_record& rec) const  {
+
+bool hittable_list::hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
     hit_record temp_rec;
     auto hit_anything = false;
     auto closest_so_far = t_max;
@@ -35,5 +40,6 @@ bool hittable_list::hit(const ray& r, double t_min, double t_max, hit_record& re
 
     return hit_anything;
 }
+
 
 #endif
